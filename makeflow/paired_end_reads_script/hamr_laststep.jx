@@ -1,0 +1,16 @@
+{
+        "define" : {
+        	"MODELS": "/xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline/hamr_models",
+                "DATA_DIR": ".",
+		"DATA_DIR_ABS": "/xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline",
+ 		"GENOME_IND": "/xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline/genome_indexes",
+                "SING_CONT": "singularity run --cleanenv /xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline", #Sing containers
+        },
+
+    "rules": [
+     # Run HAMR
+     {
+     "command" : template("{SING_CONT}/hamr_xi_1.4.sif -fe {DATA_DIR_ABS}/{RALIGN}.resolvedalig.bam {GENOME_IND}/sbicolor.fa {MODELS}/euk_trna_mods.Rdata {DATA_DIR_ABS}/hamr_{RALIGN} {RALIGN} 30 10 0.01 H4 1 .05 .05"),
+        } for RALIGN in andrew_data,      
+]
+}
