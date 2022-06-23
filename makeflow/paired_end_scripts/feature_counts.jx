@@ -1,0 +1,17 @@
+{
+        "define" : {
+                "DATA_DIR": ".",
+                "DATA_DIR_ABS": "/xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline",
+                "GENOME_IND": "/xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline/genome_indexes",
+                "SING_CONT": "singularity run --cleanenv /xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline", #Sing containers
+        },
+
+    "rules": [
+      # featureCount
+        {
+        "command" : template("{SING_CONT}/featurecounts_2.0.1.sif featureCounts -p -T 10 -s 1 -a {DATA_DIR_ABS}/Sbicolor_454_v3.1.1.gene_exons.gtf -F GTF -o {DATA_DIR_ABS}/{X}_featureCounts_output.txt -t exon -g gene_id {DATA_DIR_ABS}/{X}.merged.bam"),
+        "inputs" : [DATA_DIR+"/"+X+".merged.bam"],
+        "outputs" : [DATA_DIR+"/"+X+"_featureCounts_output.txt"]
+        } for X in andrew_data,
+]
+}

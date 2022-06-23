@@ -1,0 +1,18 @@
+{
+        "define" : {
+                "DATA_DIR": ".",
+                "DATA_DIR_ABS": "/xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline",
+                "GENOME_IND": "/xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline/genome_indexes",
+                "SING_CONT": "singularity run --cleanenv /xdisk/ericlyons/chosenobih/new_hamr_pipeline/hamr_pipeline", #Sing containers
+        },
+
+    "rules": [
+      # Convert merged.bam to merged.gtf 
+        {
+        "command" : template("{SING_CONT}/stringtie_v2.2.1.sif stringtie -o {DATA_DIR_ABS}/{X}.merged.gtf -G {DATA_DIR_ABS}/sbicolor.gene.gff3 --fr -p 10 -A {DATA_DIR_ABS}/{X}_gene_abund.tab {DATA_DIR_ABS}/{X}.merged.bam"),
+        "inputs" : [DATA_DIR+"/"+X+".merged.bam"],
+        "outputs" : [DATA_DIR+"/"+X+".merged.gtf"]
+        } for X in andrew_data,
+]
+}
+
